@@ -190,10 +190,7 @@ public class CloudMusicPackage {
                     Song song = new Song();
                     song.parseMatchInfo(new JSONObject(jsonStr));
                     if (song.is3rdPartySong()) {
-                        return String.format("(音源%s：%s - %s)",
-                                song.getMatchedPlatform(),
-                                song.getMatchedArtistName(),
-                                song.getMatchedSongName());
+                        return String.format("(音源: %s)", song.getMatchedPlatform());
                     }
                 }
             }
