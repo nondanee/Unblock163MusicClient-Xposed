@@ -1,28 +1,20 @@
 language: android
-
-jdk:
-  - oraclejdk8
-
-
+dist: trusty
 android:
   components:
     - tools
     - platform-tools
     - build-tools-28.0.3
-    - android-28
+    - android-27
+
+licenses:
+  - android-sdk-preview-license-.+
+  - android-sdk-license-.+
 
 before_install:
-  - yes | sdkmanager "platforms;android-28"
-
+  - chmod +x gradlew
 script:
-  - if [[ "${TRAVIS_PULL_REQUEST}" = "false" ]]; then
-        openssl aes-256-cbc -K $encrypted_3327ea27a2f5_key -iv $encrypted_3327ea27a2f5_iv -in Bin.jks.enc -out Bin.jks -d;
-        ./gradlew assembleRelease --stacktrace;
-        rm Bin.jks;
-    else
-        ./gradlew assembleDebug  --stacktrace;
-    fi
-
+  - ./gradlew assembleRelease
 
 before_deploy:
   - cp app/build/outputs/apk/release/*-release.apk ~
@@ -37,9 +29,3 @@ deploy:
   overwrite: true
   on:
     tags: true
-
-after_deploy:
-  - rvm install 2.2.2
-  - rvm use 2.2.2
-  - gem install fir-cli
-  - fir p $APK_PATH -T $FIR_TOKEN -c "$(git log -1 $TRAVIS_TAG)"

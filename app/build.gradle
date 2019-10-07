@@ -4,19 +4,10 @@ android {
     compileSdkVersion 28
     signingConfigs {
         release {
-            if (System.getenv()["CI"]) {
-                if (System.getenv()["TRAVIS_PULL_REQUEST"] == "false") {
-                    storeFile file(System.getenv("STORE_FILE"))
-                    storePassword System.getenv("STORE_PASSWORD")
-                    keyAlias System.getenv("KEY_ALIAS")
-                    keyPassword System.getenv("KEY_PASSWORD")
-                }
-            } else {
-                storeFile file(STORE_FILE)
-                storePassword STORE_PASSWORD
-                keyAlias KEY_ALIAS
-                keyPassword KEY_PASSWORD
-            }
+            storeFile file("./keystore.jks")
+            storePassword (project.hasProperty("STORE_PASSWORD") ? STORE_PASSWORD : System.getenv("STORE_PASSWORD"))
+            keyAlias (project.hasProperty("KEY_ALIAS") ? KEY_ALIAS : System.getenv("KEY_ALIAS"))
+            keyPassword (project.hasProperty("KEY_PASSWORD") ? KEY_PASSWORD : System.getenv("KEY_PASSWORD"))
         }
     }
     defaultConfig {
