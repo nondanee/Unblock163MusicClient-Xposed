@@ -23,7 +23,7 @@ import static bin.xposed.Unblock163MusicClient.Settings.isUpgradeBitrateFrom3rdP
 import static bin.xposed.Unblock163MusicClient.Utils.log;
 
 public class Handler {
-    private static final String XAPI = "https://unblock163musicclient.now.sh/";
+    private static final String XAPI = "https://service-rr0h5z38-1252654539.gz.apigw.tencentcs.com/release/unblock163musicclient/";
     private static final Pattern REX_PL = Pattern.compile("\"pl\":(?!999000)\\d+");
     private static final Pattern REX_DL = Pattern.compile("\"dl\":(?!999000)\\d+");
     private static final Pattern REX_SUBP = Pattern.compile("\"subp\":\\d+");
